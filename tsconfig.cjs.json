@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "outDir": "dist/cjs",
+    "lib": [
+      "ES2015"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "mysam-api",
+  "version": "0.0.1",
+  "description": "An API client for the mysam.fr cab service.",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "jsnext:main": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "repository": "https://github.com/imagine-app/mysam-api",
+  "author": "Aurélien Noce <aurelien.noce@imagine-app.fr>",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build": "yarn build:cjs && yarn build:esm"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "rimraf": "^3.0.2",
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "axios": "^0.19.2"
+  }
+}
