@@ -2,7 +2,6 @@
   "compilerOptions": {
     "incremental": true,
     "declaration": true,
-    "declarationMap": true,
     "allowJs": true,
     "esModuleInterop": true,
     "outDir": "out",

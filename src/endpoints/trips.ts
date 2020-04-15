@@ -31,7 +31,7 @@ export type CreateParams =
   Partial<OptionalParams>
 
 type MandatoryParams = {
-  clientId: string;
+  clientId?: string;
   fromAddress: Address;
   toAddress: Address;
 }

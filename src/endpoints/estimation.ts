@@ -7,7 +7,7 @@ export type ApproachTimeParams = Coordinate & {
 }
 
 export interface EstimateParams {
-  clientId: string;
+  clientId?: string;
   flatFeeId?: number;
   fromLatitude: number;
   fromLongitude: number;
