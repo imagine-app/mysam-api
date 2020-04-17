@@ -1,6 +1,6 @@
 import { VehicleType } from "./VehicleType"
 
-type Bank = {
+export type Bank = {
   id: number
   active: boolean
   bic: string
@@ -8,7 +8,7 @@ type Bank = {
   iban: string
 }
 
-type DriverDetails = {
+export type DriverDetails = {
   vehicleBrand: string
   vehicleColor: string
   vehicleModel: string

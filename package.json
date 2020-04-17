@@ -1,6 +1,6 @@
 {
   "name": "mysam-api",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "An API client for the mysam.fr cab service.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
