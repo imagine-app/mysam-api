@@ -125,13 +125,13 @@ export default class TripsAPIClient {
     let trips: ListResult<Trip> = null
     switch (options.filter) {
       case "mysam":
-        trips = await this.client.put<ListResult<Trip>>(`/api/trips/created-through-mysam`, params)
+        trips = await this.client.put<ListResult<Trip>>(`/trips/created-through-mysam`, params)
         break
       case "all":
-        trips = await this.client.post<ListResult<Trip>>(`/api/trips/summary`, params)
+        trips = await this.client.post<ListResult<Trip>>(`/trips/summary`, params)
         break
       case "client":
-        trips = await this.client.post<ListResult<Trip>>(`/api/trips/summary/${options.clientID}`, params)
+        trips = await this.client.post<ListResult<Trip>>(`/trips/summary/${options.clientID}`, params)
         break
     }
     trips.content = trips.content.map(fromJSON)

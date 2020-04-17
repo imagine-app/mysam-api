@@ -1,6 +1,7 @@
 import { VehicleType } from "./VehicleType";
 
 export type Estimation = {
+  id: number
   created: Date;
   distance: number;
   duration: number;

@@ -25,4 +25,5 @@ export type Driver = {
   highQuality: boolean
   mobilePhoneNumber: string
   userID: number
+  driverDetails: DriverDetails
 }
