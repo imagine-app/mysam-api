@@ -8,7 +8,6 @@ It features:
 - strong static typing checks using [TypeScript] for security
 - an easily composable structure, inspired from the Stripe client
 
-
 ### Installation
 
 The library is available using NPM or `yarn`:
@@ -28,21 +27,24 @@ import MySAMAPIClient from "mysam-api"
 
 // add your subdomain and API key
 const mysam = new MySAMAPIClient({
-  subdomain: "api.demo", 
-  apiKey: "<YOU_API_KEY>"
-}) 
+  subdomain: "api.demo",
+  apiKey: "<YOU_API_KEY>",
+})
 
 // and use it adequately
 async function process() {
   const existingClients = await mysam.clients.list()
-  console.log("Found clients:", JSON.stringify(existingClients.content, null, 2))
+  console.log(
+    "Found clients:",
+    JSON.stringify(existingClients.content, null, 2),
+  )
 
   const newClient = await mysam.clients.registerClient({
     email: "myname@example.com",
     firstName: "John",
     lastName: "Smith",
     mobilePhoneNumber: "555-5555-555",
-    password: "somepassword"
+    password: "somepassword",
   })
   console.log("Done creating new client with ID:", newClient.id)
 }
@@ -55,8 +57,8 @@ It also offers a series of test functions to detect the common cases of errors: 
 ```typescript
 try {
   const newCoupon = await mysam.coupons.create({
-    "clientId": "<SOME_CLIENT_ID",
-    "couponCode": "TESTCOUPON"
+    clientId: "<SOME_CLIENT_ID",
+    couponCode: "TESTCOUPON",
   })
   console.log(newCoupon)
 } catch (error) {
@@ -92,7 +94,7 @@ let address = await mysam.addresses.search({
 })
 ```
 
-Returns: an `Address` object: 
+Returns: an `Address` object:
 
 ```javascript
 {
@@ -200,7 +202,7 @@ or in the case of `list()` a list of client embedded in a "list Result" object:
 
 ```typescript
 let clients = await mysam.clients.list({
-  page: 2,   // ⬅︎ shows results in page 2
+  page: 2, // ⬅︎ shows results in page 2
   size: 50, // ⬅︎ no more than 50 results per page
 })
 ```
@@ -212,8 +214,8 @@ Usage:
 ```javascript
 // Apply the TESTCOUPON coupon to a given client
 const appliedCoupon = await mysam.coupons.create({
-  "clientId": "d77055fc-8a3d-44cc-8db2-f1ee1ed8c437",
-  "couponCode": "TESTCOUPON"
+  clientId: "d77055fc-8a3d-44cc-8db2-f1ee1ed8c437",
+  couponCode: "TESTCOUPON",
 })
 ```
 
@@ -223,14 +225,14 @@ Returns: a `Coupon` result
 {
   code: 'TESTCOUPON',
   unit: 'CURRENCY',
-  zeroDecimalAmount: 500, 
+  zeroDecimalAmount: 500,
   active: true,
   combinable: false,
   used: false
 }
 ```
 
-### `estimation`: estimate the price of a `Trip` 
+### `estimation`: estimate the price of a `Trip`
 
 Usage:
 
@@ -241,7 +243,7 @@ const approachTimeInSecs = await mysam.estimation.approachTime({
   latitude: 48.880931,
   longitude: 2.355323,
   // type of vehicle
-  vehicleType: "CAR" // ⬅︎ either CAR or VAN or LUXE
+  vehicleType: "CAR", // ⬅︎ either CAR or VAN or LUXE
 })
 console.log(approachTimeInSecs) // for eg. 600 for 10 minute wait
 
@@ -255,7 +257,7 @@ const estimation = await mysam.estimation.estimate({
   toLatitude: 48.880931,
   toLongitude: 2.355323,
   // type of vehicle
-  vehicleType: "CAR" // ⬅︎ either CAR or VAN or LUXE
+  vehicleType: "CAR", // ⬅︎ either CAR or VAN or LUXE
 })
 ```
 
@@ -305,7 +307,7 @@ let trip = await mysam.trips.create({
     country: "FR",
     zipCode: "75001",
     latitude: 48.86016845703125,
-    longitude: 2.3441596031188965
+    longitude: 2.3441596031188965,
   },
   toAddress: {
     address: "93 avenue Denfert-Rochereau",
@@ -313,7 +315,7 @@ let trip = await mysam.trips.create({
     country: "FR",
     zipCode: "75014",
     latitude: 48.836177825927734,
-    longitude: 2.3342578411102295
+    longitude: 2.3342578411102295,
   },
   type: "IMMEDIATE",
   vehicleType: "CAR",
@@ -335,7 +337,7 @@ console.log(cancelationPrice) // ⬅︎ eg. 5 for 5€
 // update the price of the course (dicounted price must be < current price !)
 let updatedTrip = await mysam.trips.createDiscount(
   2199, // ⬅ ︎the trip ID
-  5     // ⬅︎ the new price in €
+  5, // ⬅︎ the new price in €
 )
 ```
 
@@ -392,20 +394,26 @@ const trips = await mysam.trips.search({
 // • only the trips created through the MySAM interface using the "mysam" filter
 // • only a given client using the "client" filter
 // ex:
-const tripsCreatedInMySAM = await mysam.trips.search({
-  stardDate: new Date("2020-03-14T13:29:46.956Z"),
-  endDate: new Date("2020-04-14T13:29:46.956Z"),
-}, {
-  filter: "mysam"
-})
+const tripsCreatedInMySAM = await mysam.trips.search(
+  {
+    stardDate: new Date("2020-03-14T13:29:46.956Z"),
+    endDate: new Date("2020-04-14T13:29:46.956Z"),
+  },
+  {
+    filter: "mysam",
+  },
+)
 
-const tripForJohn = await mysam.trips.search({
-  stardDate: new Date("2020-03-14T13:29:46.956Z"),
-  endDate: new Date("2020-04-14T13:29:46.956Z"),
-}, {
-  filter: "client",
-  clientID: "d77055fc-8a3d-44cc-8db2-f1ee1ed8c437"
-})
+const tripForJohn = await mysam.trips.search(
+  {
+    stardDate: new Date("2020-03-14T13:29:46.956Z"),
+    endDate: new Date("2020-04-14T13:29:46.956Z"),
+  },
+  {
+    filter: "client",
+    clientID: "d77055fc-8a3d-44cc-8db2-f1ee1ed8c437",
+  },
+)
 ```
 
 Returns: a "List Result" of `Trip`s
@@ -426,11 +434,10 @@ The project written in [TypeScript], but it's also available to Javascript using
 
 ## TODO
 
-* [ ] Complete the API with the remaning calls
-* [ ] Add comments & docs
-* [ ] Add some testing
+- [ ] Complete the API with the remaning calls
+- [ ] Add comments & docs
+- [ ] Add some testing
 
-[MySAM]: httpsL//mysam.fr/
-[Rollup]: https://rollupjs.org/
-[TypeScript]: https://www.typescriptlang.org/
-
+[mysam]: https://mysam.fr/
+[rollup]: https://rollupjs.org/
+[typescript]: https://www.typescriptlang.org/
