@@ -42,11 +42,13 @@ type EstimationErrorType =
   | "FLAT_FEE_NOT_FOUND"
   | "ADMINISTRATIVE_AREA_NOT_SUPPORTED"
   | "THIRD_PARTY_CALL_FAILED"
+  | "NO_DRIVER_AVAILABLE"
 const estimationErrorTypes = new Set([
   "BAD_REQUEST_PARAMETER",
   "FLAT_FEE_NOT_FOUND",
   "ADMINISTRATIVE_AREA_NOT_SUPPORTED",
   "THIRD_PARTY_CALL_FAILED",
+  "NO_DRIVER_AVAILABLE",
 ] as EstimationErrorType[])
 
 export function isEstimationError(
