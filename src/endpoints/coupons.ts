@@ -1,6 +1,6 @@
 import { RESTClient } from "../client/RESTClient"
 import { Coupon } from "../models"
-import MySAMError from "../client/MySAMError"
+import MySAMError, { isMySAMError } from "../client/MySAMError"
 
 export interface CreateParams {
   clientId: string
@@ -25,10 +25,10 @@ const couponErrorTypes = new Set([
   "COUPON_ALREADY_ASSIGNED",
   "COUPON_NOT_FOUND",
   "COUPON_NOT_ACCEPTABLE",
-] as CouponErrorType[])
+])
 
 export function isCouponError(
   error: Error,
 ): error is MySAMError<CouponErrorType> {
-  return error instanceof MySAMError && couponErrorTypes.has(error.type)
+  return isMySAMError(error) && couponErrorTypes.has(error.type)
 }

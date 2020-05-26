@@ -1,7 +1,7 @@
 import { RESTClient } from "../client/RESTClient"
 import { Coordinate, VehicleType } from "../models"
 import { Estimation, fromJSON } from "../models/Estimation"
-import MySAMError from "../client/MySAMError"
+import MySAMError, { isMySAMError } from "../client/MySAMError"
 
 export type ApproachTimeParams = Coordinate & {
   vehicleType: VehicleType
@@ -49,10 +49,10 @@ const estimationErrorTypes = new Set([
   "ADMINISTRATIVE_AREA_NOT_SUPPORTED",
   "THIRD_PARTY_CALL_FAILED",
   "NO_DRIVER_AVAILABLE",
-] as EstimationErrorType[])
+])
 
 export function isEstimationError(
   error: Error,
 ): error is MySAMError<EstimationErrorType> {
-  return error instanceof MySAMError && estimationErrorTypes.has(error.type)
+  return isMySAMError(error) && estimationErrorTypes.has(error.type)
 }

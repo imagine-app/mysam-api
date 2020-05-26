@@ -2,7 +2,7 @@ import { RESTClient } from "../client/RESTClient"
 import { Trip, fromJSON } from "../models/Trip"
 import { Address } from "../models/Address"
 import { ListResult } from "../models/ListResult"
-import MySAMError from "../client/MySAMError"
+import MySAMError, { isMySAMError } from "../client/MySAMError"
 
 export type SearchByDateParams = {
   startDate: Date
@@ -161,12 +161,12 @@ type CancelTripErrorType = "TRIP_UPDATE_FORBIDDEN" | "TROP_NOT_FOUND"
 const cancelTripErrorTypes = new Set([
   "TRIP_UPDATE_FORBIDDEN",
   "TROP_NOT_FOUND",
-] as CancelTripErrorType[])
+])
 
 export function isTripCancelError(
   error: Error,
 ): error is MySAMError<CancelTripErrorType> {
-  return error instanceof MySAMError && cancelTripErrorTypes.has(error.type)
+  return isMySAMError(error) && cancelTripErrorTypes.has(error.type)
 }
 
 type DiscountTripErrorType =
@@ -175,12 +175,12 @@ type DiscountTripErrorType =
 const discountTripErrorTypes = new Set([
   "PARTNER_DISCOUNT_NOT_APPLICABLE",
   "TROP_NOT_FOUND",
-] as DiscountTripErrorType[])
+])
 
 export function isTripDiscountError(
   error: Error,
 ): error is MySAMError<DiscountTripErrorType> {
-  return error instanceof MySAMError && discountTripErrorTypes.has(error.type)
+  return isMySAMError(error) && discountTripErrorTypes.has(error.type)
 }
 
 type CreateTripErrorType =
@@ -207,12 +207,12 @@ const createTripErrorTypes = new Set([
   "TRIP_NUMBER_OF_PASSENGERS_OUT_OF_RANGE",
   "TRIP_MUST_PROVIDE_EXTERNAL_REFERENCE",
   "IMMEDIATE_TRIPS_NOT_ALLOWED",
-] as CreateTripErrorType[])
+])
 
 export function isTripCreateError(
   error: Error,
 ): error is MySAMError<CreateTripErrorType> {
-  return error instanceof MySAMError && createTripErrorTypes.has(error.type)
+  return isMySAMError(error) && createTripErrorTypes.has(error.type)
 }
 
 type SummaryTripErrorType = "CLIENT_NOT_FOUND"
@@ -220,7 +220,7 @@ type SummaryTripErrorType = "CLIENT_NOT_FOUND"
 export function isTripSummaryError(
   error: Error,
 ): error is MySAMError<SummaryTripErrorType> {
-  return error instanceof MySAMError && error.type === "CLIENT_NOT_FOUND"
+  return isMySAMError(error) && error.type === "CLIENT_NOT_FOUND"
 }
 
 type TripErrorType =

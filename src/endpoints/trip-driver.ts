@@ -7,7 +7,7 @@ import {
   DriverArrivalTimeEstimate,
   fromJSON as driverArrivalTimeEstimateFromJSON,
 } from "../models/DriverArrivalTimeEstimate"
-import MySAMError from "../client/MySAMError"
+import MySAMError, { isMySAMError } from "../client/MySAMError"
 
 export default class TripDriverAPIClient {
   constructor(private client: RESTClient) {}
@@ -33,14 +33,12 @@ type GetDriverLocationErrorType = "TRIP_STATUS_INVALID" | "TRIP_NOT_FOUND"
 const getDriverLocatoinErrorTypes = new Set([
   "TRIP_STATUS_INVALID",
   "TRIP_NOT_FOUND",
-] as GetDriverLocationErrorType[])
+])
 
 export function isGetDriverLocationError(
   error: Error,
 ): error is MySAMError<GetDriverLocationErrorType> {
-  return (
-    error instanceof MySAMError && getDriverLocatoinErrorTypes.has(error.type)
-  )
+  return isMySAMError(error) && getDriverLocatoinErrorTypes.has(error.type)
 }
 
 type EstimateTimeToPickUpLocationErrorType =
@@ -51,13 +49,13 @@ const estimateTimeToPickUpLocationErrorTypes = new Set([
   "NO_DRIVER_ASSIGNED_TO_TRIP",
   "TRIP_NOT_FOUND",
   "THIRD_PARTY_CALL_FAILED",
-] as EstimateTimeToPickUpLocationErrorType[])
+])
 
 export function isEstimateTimeToPickUpLocationError(
   error: Error,
 ): error is MySAMError<EstimateTimeToPickUpLocationErrorType> {
   return (
-    error instanceof MySAMError &&
+    isMySAMError(error) &&
     estimateTimeToPickUpLocationErrorTypes.has(error.type)
   )
 }

@@ -1,6 +1,6 @@
 import { RESTClient } from "../client/RESTClient"
 import { ClienBaseInfo, Client, ListResult, PagingOptions } from "../models"
-import MySAMError from "../client/MySAMError"
+import MySAMError, { isMySAMError } from "../client/MySAMError"
 
 export type RegisterParams = ClienBaseInfo & {
   emailOptIn?: boolean
@@ -41,12 +41,12 @@ const updateClientErrorTypes = new Set([
   "PROFILE_UPDATE_FAILED",
   "CLIENT_NOT_FOUND",
   "EMAIL_ALREADY_EXISTS",
-] as UpdateClientErrorType[])
+])
 
 export function isClientUpdateError(
   error: Error,
 ): error is MySAMError<UpdateClientErrorType> {
-  return error instanceof MySAMError && updateClientErrorTypes.has(error.type)
+  return isMySAMError(error) && updateClientErrorTypes.has(error.type)
 }
 
 type RegisterClientErrorType =
@@ -55,12 +55,12 @@ type RegisterClientErrorType =
 const registerClientErrorTypes = new Set([
   "REFERRAL_CODE_NOT_FOUND",
   "EMAIL_ALREADY_EXISTS",
-] as RegisterClientErrorType[])
+])
 
 export function isClientRegisterError(
   error: Error,
 ): error is MySAMError<RegisterClientErrorType> {
-  return error instanceof MySAMError && updateClientErrorTypes.has(error.type)
+  return isMySAMError(error) && updateClientErrorTypes.has(error.type)
 }
 
 type ClientErrorType = UpdateClientErrorType | RegisterClientErrorType
