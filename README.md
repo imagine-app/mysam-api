@@ -378,7 +378,7 @@ Returns: a `Trip` object
 }
 ```
 
-#### Recherche de courses
+#### Trip lookup
 
 Usage:
 
@@ -419,6 +419,28 @@ const tripForJohn = await mysam.trips.search(
 Returns: a "List Result" of `Trip`s
 
 **NOTE**: this method accepts the same paging options as the `clients.list()` or `flatFees.list()` methods
+
+### `trip-driver`: manage live info on `Driver`s
+
+**NOTE**: these API only work then the underlying `Trip` is in `ASSIGNED` or `STARTED` state !
+
+#### Get the current location (`DriverLocation`) of the vehicle
+
+```javascript
+const tripId = 1234 // ⬅︎ the active trip ID
+const driverLocation = await mysam.tripDriver.getDriverLocation(tripId)
+console.log(`Driver is at: ${driverLocation.latitude}, ${driverLocation.longitude})
+```
+
+#### Estimate the delay for the driver to arrive on site
+
+```javascript
+const tripId = 1234 // ⬅︎ the active trip ID
+const timeToPickUp = await mysam.tripDriver.estimateTimeToPickUpLocation(tripId)
+console.log(
+  `Vehicle will arrive in: ${timeToPickUp.duration}s (${timeToPiclUp.distance}m)`,
+)
+```
 
 ## Contributing
 

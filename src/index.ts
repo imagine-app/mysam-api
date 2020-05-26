@@ -32,10 +32,16 @@ export {
   isTripSummaryError,
   isTripError,
 } from "./endpoints/trips"
+export {
+  isGetDriverLocationError,
+  isEstimateTimeToPickUpLocationError,
+  isTripDriverError,
+} from "./endpoints/trip-driver"
 
 // By default we use the bundled axios-based REST client
 import { RESTClient, isRESTClient } from "./client/RESTClient"
 import { AxiosClient } from "./client/AxiosClient"
+import TripDriverAPIClient from "./endpoints/trip-driver"
 
 type APIClientParams =
   | RESTClient
@@ -52,6 +58,7 @@ export default class APIClient {
   bills: BillsAPIClient
   coupons: CouponsAPIClient
   trips: TripsAPIClient
+  tripDriver: TripDriverAPIClient
 
   constructor(params: APIClientParams) {
     const restClient = isRESTClient(params)
@@ -64,5 +71,6 @@ export default class APIClient {
     this.bills = new BillsAPIClient(restClient)
     this.coupons = new CouponsAPIClient(restClient)
     this.trips = new TripsAPIClient(restClient)
+    this.tripDriver = new TripDriverAPIClient(restClient)
   }
 }
