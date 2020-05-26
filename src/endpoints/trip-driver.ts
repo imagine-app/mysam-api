@@ -12,14 +12,14 @@ import MySAMError from "../client/MySAMError"
 export default class TripDriverAPIClient {
   constructor(private client: RESTClient) {}
 
-  async getDriverLocation(tripID: string) {
+  async getDriverLocation(tripID: number) {
     const driverLocation = await this.client.get<DriverLocation>(
       `/trip/${tripID}/driver/location`,
     )
     return driverLocationFromJSON(driverLocation)
   }
 
-  async estimateTimeToPickUpLocation(tripID: string) {
+  async estimateTimeToPickUpLocation(tripID: number) {
     const driverArrivalTimeEstimate = await this.client.get<
       DriverArrivalTimeEstimate
     >(`/trip/${tripID}/driver/location`)
